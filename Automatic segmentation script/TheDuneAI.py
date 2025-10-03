@@ -74,16 +74,16 @@ class ContourPilot:
                 img = np.squeeze(img)
 
                 predicted_array = self.__generate_segmentation__(img,params)
-
-                if not os.path.exists(os.path.join(self.Output_path,filename.split('\\')[-2]+'_(DL)')):
-                    os.makedirs(os.path.join(self.Output_path,filename.split('\\')[-2]+'_(DL)'))   
+                                
+                if not os.path.exists(os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)')):
+                    os.makedirs(os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)'))   
                 
                 generated_img = sitk.GetImageFromArray(predicted_array)
                 generated_img.SetSpacing(params['original_spacing'])
                 generated_img.SetOrigin(params['img_origin'])
-                sitk.WriteImage(generated_img,os.path.join(self.Output_path,filename.split('\\')[-2]+'_(DL)','DL_mask.nrrd')) 
+                sitk.WriteImage(generated_img,os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)','DL_mask.nii')) 
                 temp_data=sitk.ReadImage(filename)
-                sitk.WriteImage(temp_data,os.path.join(self.Output_path,filename.split('\\')[-2]+'_(DL)','image.nrrd'))
+                sitk.WriteImage(temp_data,os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)','image.nii'))
 
                 if count == len(self.Patients_gen):
                     return 0
