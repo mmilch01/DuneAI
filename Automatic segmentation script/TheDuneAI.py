@@ -85,6 +85,13 @@ class ContourPilot:
                 temp_data=sitk.ReadImage(filename)
                 sitk.WriteImage(temp_data,os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)','image.nii'))
 
+                temp_img = sitk.GetArrayFromImage(temp_data)
+                lung_mask=le.get_seg_lungs(img=temp_img,return_only_mask=True)
+                lung_mask_img=sitk.GetImageFromArray(lung_mask)
+                lung_mask_img.SetSpacing(params['original_spacing'])
+                lung_mask_img.SetOrigin(params['img_origin'])
+                sitk.WriteImage(lung_mask_img,os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)','lung_mask.nii'))
+
                 if count == len(self.Patients_gen):
                     return 0
 
