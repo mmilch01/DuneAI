@@ -20,7 +20,7 @@ model_path=r'./model_files/'   #path to the model files
 
 path_to_test_data = r'../Software for qualitative assesment/test_data'  #path to the data to be segmented (nrrds)
 
-save_path ='/home/mmilchenko/src/DuneAI/Automatic segmentation script/segmentations'
+save_path ='/workspace/admin/DuneAI/Automatic segmentation script/segmentations'
 
 #r'./produced segmentations' #path for the output files (nrrds)
 
