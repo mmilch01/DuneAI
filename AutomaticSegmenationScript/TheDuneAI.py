@@ -75,22 +75,22 @@ class ContourPilot:
 
                 predicted_array = self.__generate_segmentation__(img,params)
                                 
-                if not os.path.exists(os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)')):
-                    os.makedirs(os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)'))   
+                if not os.path.exists(os.path.join(self.Output_path,filename.split('/')[-2]+'_duneai')):
+                    os.makedirs(os.path.join(self.Output_path,filename.split('/')[-2]+'_duneai'))
                 
                 generated_img = sitk.GetImageFromArray(predicted_array)
                 generated_img.SetSpacing(params['original_spacing'])
                 generated_img.SetOrigin(params['img_origin'])
-                sitk.WriteImage(generated_img,os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)','DL_mask.nii')) 
+                sitk.WriteImage(generated_img,os.path.join(self.Output_path,filename.split('/')[-2]+'_duneai','DL_mask.nii')) 
                 temp_data=sitk.ReadImage(filename)
-                sitk.WriteImage(temp_data,os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)','image.nii'))
+                sitk.WriteImage(temp_data,os.path.join(self.Output_path,filename.split('/')[-2]+'_duneai','image.nii'))
 
                 temp_img = sitk.GetArrayFromImage(temp_data)
                 lung_mask=le.get_seg_lungs(img=temp_img,return_only_mask=True)
                 lung_mask_img=sitk.GetImageFromArray(lung_mask)
                 lung_mask_img.SetSpacing(params['original_spacing'])
                 lung_mask_img.SetOrigin(params['img_origin'])
-                sitk.WriteImage(lung_mask_img,os.path.join(self.Output_path,filename.split('/')[-2]+'_(DL)','lung_mask.nii'))
+                sitk.WriteImage(lung_mask_img,os.path.join(self.Output_path,filename.split('/')[-2]+'_duneai','lung_mask.nii'))
 
                 if count == len(self.Patients_gen):
                     return 0
